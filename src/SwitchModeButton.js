@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { facingModes } from './facingModeTypes';
 
 const SwitchIcon = () => (
@@ -90,5 +91,10 @@ const SwitchModeButton = ({ currentFacingMode = '', onSwitch }) => (
     <SwitchIcon />
   </button>
 );
+
+SwitchModeButton.propTypes = {
+  currentFacingMode: PropTypes.string.isRequired,
+  onSwitch: PropTypes.func.isRequired,
+};
 
 export default SwitchModeButton;

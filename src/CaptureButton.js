@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const captureButtonStyle = {
   border: '6px solid white',
@@ -18,5 +19,9 @@ const CaptureButton = ({ onCapture }) => (
     type="button"
   />
 );
+
+CaptureButton.propTypes = {
+  onCapture: PropTypes.func.isRequired,
+};
 
 export default CaptureButton;

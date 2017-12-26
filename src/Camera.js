@@ -110,17 +110,28 @@ class Camera extends PureComponent {
   }
 
   render() {
-    const { error, devices } = this.state;
-    const multipleDevices = true;
+    const { constraints = {}, devices, error } = this.state;
+    const multipleDevices = devices && devices.length > 1;
+    const { video: { facingMode } } = constraints;
     return error ? (
       <CameraError errorType={error} />
     ) : (
       <CameraWrapper>
         <video autoPlay playsInline ref={video => (this.video = video)} />
         <CameraControls>
-          {multipleDevices && <SwitchModeButton onSwitch={this.changeFacingMode} />}
+          {multipleDevices && (
+            <SwitchModeButton
+              currentFacingMode={facingMode}
+              onSwitch={this.changeFacingMode}
+            />
+          )}
           <CaptureButton onCapture={this.captureMediaStream} />
-          {multipleDevices && <SwitchModeButton onSwitch={this.changeFacingMode} />}
+          {multipleDevices && (
+            <SwitchModeButton
+              currentFacingMode={facingMode}
+              onSwitch={this.changeFacingMode}
+            />
+          )}
         </CameraControls>
       </CameraWrapper>
     );
