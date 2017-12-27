@@ -32,6 +32,10 @@ class Camera extends PureComponent {
     this.getAvailableDevices();
   }
 
+  componentWillUnmount() {
+    return this.stopMediaStream();
+  }
+
   captureMediaStream = (event, mediaStream) => {
     const ms = mediaStream || this.state.mediaStream;
     if (!ms) this.setState({ error: errorTypes.NO_STREAM.type });
