@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
+import debounce from 'throttle-debounce/debounce';
 import CameraError from './CameraError';
 import CaptureButton from './CaptureButton';
 import CameraWrapper from './CameraWrapper';
@@ -30,6 +31,7 @@ class Camera extends PureComponent {
     await this.getMediaStream(this.state.constraints);
     this.setVideoStream();
     this.getAvailableDevices();
+    window.addEventListener('resize', this.handleResize);
   }
 
   componentWillUnmount() {
@@ -40,8 +42,10 @@ class Camera extends PureComponent {
     const ms = mediaStream || this.state.mediaStream;
     if (!ms) this.setState({ error: errorTypes.NO_STREAM.type });
     const mediaStreamTrack = ms.getVideoTracks()[0];
-    const imageCapture = new ImageCapture(mediaStreamTrack);
-    if (imageCapture) this.takePhoto(imageCapture);
+    const imageCapture = new window.ImageCapture(mediaStreamTrack);
+    if (imageCapture) {
+      this.takePhoto(imageCapture);
+    }
   };
 
   async changeFacingMode(facingMode = '') {
@@ -80,6 +84,18 @@ class Camera extends PureComponent {
       this.setState({ error: errorTypes.UNSUPPORTED.type });
     }
   }
+
+  handleResize = debounce(100, async () => {
+    this.stopMediaStream();
+    await this.getMediaStream({
+      video: {
+        facingMode: this.state.constraints.video.facingMode,
+        height: { ideal: window.innerHeight },
+        width: { ideal: window.innerWidth },
+      },
+    });
+    this.setVideoStream();
+  });
 
   async takePhoto(imageCapture) {
     if (!imageCapture) {

@@ -66,7 +66,8 @@ const SwitchModeButton = ({ currentFacingMode = '', onSwitch }) => (
         currentFacingMode === facingModes.ENVIRONMENT
           ? facingModes.USER
           : facingModes.ENVIRONMENT,
-      )}
+      )
+    }
     style={switchButtonStyle}
     type="button"
   >
