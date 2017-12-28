@@ -35,7 +35,8 @@ class Camera extends PureComponent {
   }
 
   componentWillUnmount() {
-    return this.stopMediaStream();
+    this.stopMediaStream();
+    window.removeEventListener('resize', this.handleResize);
   }
 
   captureMediaStream = (event, mediaStream) => {
