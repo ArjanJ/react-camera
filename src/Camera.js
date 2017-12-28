@@ -16,8 +16,8 @@ class Camera extends PureComponent {
       constraints: {
         video: {
           facingMode: this.props.facingMode,
-          height: { ideal: this.props.height },
-          width: { ideal: this.props.width },
+          height: { ideal: this.props.height, max: this.props.height },
+          width: { ideal: this.props.width, max: this.props.width },
         },
       },
       devices: null,
@@ -87,12 +87,11 @@ class Camera extends PureComponent {
   }
 
   handleResize = debounce(100, async () => {
-    this.stopMediaStream();
     await this.getMediaStream({
       video: {
         facingMode: this.state.constraints.video.facingMode,
-        height: { ideal: window.innerHeight },
-        width: { ideal: window.innerWidth },
+        height: { ideal: this.props.height, max: this.props.height },
+        width: { ideal: this.props.width, max: this.props.width },
       },
     });
     this.setVideoStream();
@@ -138,7 +137,12 @@ class Camera extends PureComponent {
       <CameraError errorType={error} />
     ) : (
       <CameraWrapper>
-        <video autoPlay playsInline ref={video => (this.video = video)} />
+        <video
+          autoPlay
+          playsInline
+          ref={video => (this.video = video)}
+          style={this.props.responsive ? { width: '100%' } : {}}
+        />
         <CameraControls>
           <CaptureButton onCapture={this.captureMediaStream} />
         </CameraControls>
@@ -156,6 +160,7 @@ class Camera extends PureComponent {
 Camera.defaultProps = {
   facingMode: facingModes.ENVIRONMENT,
   height: window.innerHeight,
+  responsive: true,
   width: window.innerWidth,
 };
 
@@ -164,6 +169,7 @@ Camera.propTypes = {
   height: PropTypes.number,
   onStopMediaStream: PropTypes.func,
   onTakePhoto: PropTypes.func,
+  responsive: PropTypes.bool,
   width: PropTypes.number,
 };
 
