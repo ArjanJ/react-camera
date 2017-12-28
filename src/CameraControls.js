@@ -5,7 +5,7 @@ const cameraControlsStyle = {
   bottom: '10vh',
   boxSizing: 'border-box',
   display: 'flex',
-  justifyContent: 'space-evenly',
+  justifyContent: 'center',
   padding: '0 5vw',
   position: 'absolute',
   width: '100%',

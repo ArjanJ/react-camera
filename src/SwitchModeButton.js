@@ -13,54 +13,34 @@ const SwitchIcon = () => (
     strokeWidth="2"
   >
     <g strokeWidth="2" transform="translate(0, 0)">
-      <path
-        fill="none"
-        stroke="#ffffff"
-        strokeWidth="2"
-        strokeMiterlimit="10"
-        d="M2.2,10C3.127,5.435,7.162,2,12,2 c2.726,0,5.198,1.091,7.002,2.86"
-        strokeLinecap="butt"
-        strokeLinejoin="miter"
-      />{' '}
       <polygon
         fill="none"
-        stroke="#ffffff"
+        stroke="#fff"
         strokeWidth="2"
         strokeLinecap="square"
         strokeMiterlimit="10"
-        points="16,7 21,2 22,8 "
+        points="1,22 23,22 23,5 19,5 17,2 11,2 9,5 1,5 "
         strokeLinejoin="miter"
       />{' '}
-      <polygon
-        fill="#ffffff"
-        points="16,7 21,2 22,8 "
-        strokeLinecap="butt"
-        strokeLinejoin="miter"
-      />{' '}
-      <path
+      <circle
         fill="none"
-        stroke="#ffffff"
-        strokeWidth="2"
-        strokeMiterlimit="10"
-        d="M21.8,14c-0.927,4.564-4.962,8-9.8,8 c-2.726,0-5.198-1.091-7.002-2.86"
-        strokeLinecap="butt"
-        strokeLinejoin="miter"
-      />{' '}
-      <polygon
-        fill="none"
-        stroke="#ffffff"
+        stroke="#fff"
         strokeWidth="2"
         strokeLinecap="square"
         strokeMiterlimit="10"
-        points="8,17 3,22 2,16 "
+        cx="14"
+        cy="13"
+        r="5"
         strokeLinejoin="miter"
       />{' '}
-      <polygon
-        fill="#ffffff"
-        points="8,17 3,22 2,16 "
-        strokeLinecap="butt"
+      <circle
+        fill="#fff"
+        cx="5"
+        cy="9"
+        r="1"
         strokeLinejoin="miter"
-      />{' '}
+        strokeLinecap="square"
+      />
     </g>
   </svg>
 );
@@ -68,12 +48,14 @@ const SwitchIcon = () => (
 const switchButtonStyle = {
   alignItems: 'center',
   background: 'none',
-  border: '2px solid white',
-  borderRadius: '50%',
+  border: 'none',
   cursor: 'pointer',
   display: 'flex',
   height: '40px',
   justifyContent: 'center',
+  position: 'absolute',
+  right: '5vw',
+  top: '5vh',
   width: '40px',
 };
 

@@ -104,7 +104,7 @@ class Camera extends PureComponent {
   }
 
   stopMediaStream() {
-    if (this.video) {
+    if (this.video && this.video.srcObject) {
       const { onStopMediaStream } = this.props;
       this.video.srcObject.getTracks().forEach(t => t.stop());
       if (onStopMediaStream) {
@@ -123,20 +123,14 @@ class Camera extends PureComponent {
       <CameraWrapper>
         <video autoPlay playsInline ref={video => (this.video = video)} />
         <CameraControls>
-          {multipleDevices && (
-            <SwitchModeButton
-              currentFacingMode={facingMode}
-              onSwitch={this.changeFacingMode}
-            />
-          )}
           <CaptureButton onCapture={this.captureMediaStream} />
-          {multipleDevices && (
-            <SwitchModeButton
-              currentFacingMode={facingMode}
-              onSwitch={this.changeFacingMode}
-            />
-          )}
         </CameraControls>
+        {multipleDevices && (
+          <SwitchModeButton
+            currentFacingMode={facingMode}
+            onSwitch={this.changeFacingMode}
+          />
+        )}
       </CameraWrapper>
     );
   }
