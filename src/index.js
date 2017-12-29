@@ -1,5 +1,5 @@
 import React from 'react';
 import { render } from 'react-dom';
-import Camera from './camera/Camera';
+import Docs from './docs/';
 
-render(<Camera />, document.getElementById('root'));
+render(<Docs />, document.getElementById('root'));

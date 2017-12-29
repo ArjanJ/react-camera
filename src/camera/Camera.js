@@ -16,7 +16,7 @@ class Camera extends PureComponent {
       constraints: {
         video: {
           facingMode: this.props.facingMode,
-          height: { ideal: this.props.height, max: this.props.height },
+          // height: { ideal: this.props.height, max: this.props.height },
           width: { ideal: this.props.width, max: this.props.width },
         },
       },
@@ -86,7 +86,7 @@ class Camera extends PureComponent {
     }
   }
 
-  handleResize = debounce(100, async () => {
+  handleResize = debounce(150, async () => {
     await this.getMediaStream({
       video: {
         facingMode: this.state.constraints.video.facingMode,
@@ -142,7 +142,11 @@ class Camera extends PureComponent {
           autoPlay
           playsInline
           ref={video => (this.video = video)}
-          style={responsive ? { width: '100%' } : {}}
+          style={
+            responsive
+              ? { background: 'black', display: 'block', width: '100%' }
+              : { background: 'black', display: 'block' }
+          }
         />
         <CameraControls>
           {captureButtonRenderer ? (

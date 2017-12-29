@@ -10,7 +10,8 @@
     "throttle-debounce": "^1.0.1"
   },
   "devDependencies": {
-    "react-scripts": "1.0.0"
+    "react-scripts": "1.0.0",
+    "styled-components": "^2.4.0"
   },
   "scripts": {
     "start": "react-scripts start",
