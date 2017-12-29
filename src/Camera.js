@@ -130,6 +130,7 @@ class Camera extends PureComponent {
   }
 
   render() {
+    const { captureButtonRenderer, responsive } = this.props;
     const { constraints = {}, devices, error } = this.state;
     const multipleDevices = devices && devices.length > 1;
     const { video: { facingMode } } = constraints;
@@ -141,10 +142,14 @@ class Camera extends PureComponent {
           autoPlay
           playsInline
           ref={video => (this.video = video)}
-          style={this.props.responsive ? { width: '100%' } : {}}
+          style={responsive ? { width: '100%' } : {}}
         />
         <CameraControls>
-          <CaptureButton onCapture={this.captureMediaStream} />
+          {captureButtonRenderer ? (
+            captureButtonRenderer(this.captureMediaStream)
+          ) : (
+            <CaptureButton onCapture={this.captureMediaStream} />
+          )}
         </CameraControls>
         {multipleDevices && (
           <SwitchModeButton
@@ -165,6 +170,7 @@ Camera.defaultProps = {
 };
 
 Camera.propTypes = {
+  captureButtonRenderer: PropTypes.func,
   facingMode: PropTypes.string,
   height: PropTypes.number,
   onStopMediaStream: PropTypes.func,
