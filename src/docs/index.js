@@ -8,14 +8,19 @@ injectGlobal`
   }
 
   body {
-    background: #9870FC;
-    font-family: 'adelle-sans';
+    background: #FAFAFA;
+    font-family: SF Pro Text, Arial, sans-serif;
     line-height: 1.5;
     -webkit-font-smoothing: antialiased;
   }
 
   h1, h2, h3 {
+    font-family: SF Pro Display, Arial, sans-serif;
     line-height: 1.1;
+  }
+
+  a {
+    text-decoration: none;
   }
 `;
 
@@ -26,9 +31,8 @@ const fadeIn = keyframes`
 
 const settings = {
   colors: {
-    headings: '#DFFCB5',
-    highlight: '#B7F5DE',
-    text: '#FAFAFA',
+    headings: '#7A08FA',
+    text: '#A82FFC',
   },
   space: 24,
 };
@@ -36,30 +40,33 @@ const settings = {
 const Wrapper = styled.div`
   margin: auto;
   max-width: 800px;
-  padding: ${settings.space * 2}px ${settings.space / 2}px;
+  padding: 0 ${settings.space / 2}px;
 `;
 
 const Title = styled.h1`
-  color: ${settings.colors.headings};
-  font-size: 43px;
+  color: #342d3b;
+  font-size: 40px;
   font-weight: 700;
-  margin-bottom: ${settings.space / 3}px;
-  text-transform: lowercase;
+  margin-bottom: ${settings.space / 2}px;
 `;
 
 const Subtitle = styled.h2`
-  color: ${settings.colors.text};
-  font-size: 16px;
+  color: ${settings.colors.headings};
+  font-size: 20px;
+  margin-bottom: ${settings.space * 1.75}px;
 `;
 
 const Header = styled.header`
+  background: #fafafa;
+  border-bottom: 1px solid ${settings.colors.headings};
   margin-bottom: ${settings.space * 3}px;
-  text-align: center;
+  padding: ${settings.space * 2}px 0;
 `;
 
 const CameraWrapper = styled.div`
   border-radius: 2px;
-  box-shadow: 0 5px 22px rgba(0, 0, 0, 0.35);
+  border: 1px solid ${settings.colors.headings};
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.24);
   margin-bottom: ${settings.space * 1.5}px;
   overflow: hidden;
 `;
@@ -83,6 +90,19 @@ const Image = styled.img`
   }
 `;
 
+const Link = styled.a`
+  background: white;
+  border: 1px solid ${settings.colors.text};
+  border-radius: 2px;
+  color: ${settings.colors.headings};
+  display: inline-block;
+  padding: ${settings.space / 3}px ${settings.space / 1.5}px;
+`;
+
+const Main = styled.section`
+  padding-bottom: ${settings.space * 2}px;
+`;
+
 class Docs extends React.PureComponent {
   state = {
     images: [],
@@ -95,22 +115,25 @@ class Docs extends React.PureComponent {
   };
 
   render() {
-    return (
-      <Wrapper>
-        <Header>
+    return [
+      <Header key="header">
+        <Wrapper>
           <Title>React Camera</Title>
-          <Subtitle>Take photos with your device camera</Subtitle>
-        </Header>
-        <section>
+          <Subtitle>A flexible camera component for React</Subtitle>
+          <Link href="#">Code and documentation on GitHub</Link>
+        </Wrapper>
+      </Header>,
+      <Main key="section">
+        <Wrapper>
           <CameraWrapper>
             <Camera onTakePhoto={this.handleTakePhoto} />
           </CameraWrapper>
           <Images>
             {this.state.images.map(img => <Image key={img} src={img} />)}
           </Images>
-        </section>
-      </Wrapper>
-    );
+        </Wrapper>
+      </Main>,
+    ];
   }
 }
 
