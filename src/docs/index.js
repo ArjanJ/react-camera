@@ -8,7 +8,7 @@ injectGlobal`
   }
 
   body {
-    background: #FAFAFA;
+    background: #7A08FA;
     font-family: SF Pro Text, Arial, sans-serif;
     line-height: 1.5;
     -webkit-font-smoothing: antialiased;
@@ -63,10 +63,17 @@ const Header = styled.header`
   padding: ${settings.space * 2}px 0;
 `;
 
+const Heading = styled.h2`
+  color: #fafafa;
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: ${settings.space}px;
+`;
+
 const CameraWrapper = styled.div`
+  border: 1px solid #fafafa;
   border-radius: 2px;
-  border: 1px solid ${settings.colors.headings};
-  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.24);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.12);
   margin-bottom: ${settings.space * 1.5}px;
   overflow: hidden;
 `;
@@ -75,10 +82,13 @@ const Images = styled.div`
   align-items: center;
   display: flex;
   flex-wrap: wrap;
+  margin-bottom: ${settings.space * 2}px;
 `;
 
 const Image = styled.img`
   animation: ${fadeIn} 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+  border: 1px solid #fafafa;
+  border-radius: 1px;
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
   height: auto;
   margin-bottom: ${settings.space / 3}px;
@@ -97,6 +107,18 @@ const Link = styled.a`
   color: ${settings.colors.headings};
   display: inline-block;
   padding: ${settings.space / 3}px ${settings.space / 1.5}px;
+  transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+
+  &:hover {
+    background: ${settings.colors.text};
+    color: white;
+  }
+`;
+
+const CustomCaptureButton = Link.withComponent('button').extend`
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
 `;
 
 const Main = styled.section`
@@ -105,12 +127,19 @@ const Main = styled.section`
 
 class Docs extends React.PureComponent {
   state = {
-    images: [],
+    basicImages: [],
+    customImages: [],
   };
 
-  handleTakePhoto = img => {
+  handleTakePhotoBasic = img => {
     this.setState({
-      images: [...this.state.images, img],
+      basicImages: [...this.state.basicImages, img],
+    });
+  };
+
+  handleTakePhotoCustomRenderer = img => {
+    this.setState({
+      customImages: [...this.state.customImages, img],
     });
   };
 
@@ -119,17 +148,33 @@ class Docs extends React.PureComponent {
       <Header key="header">
         <Wrapper>
           <Title>React Camera</Title>
-          <Subtitle>A flexible camera component for React</Subtitle>
-          <Link href="#">Code and documentation on GitHub</Link>
+          <Subtitle>A flexible camera component for React DOM</Subtitle>
+          <Link href="https://github.com/arjanj/react-camera">
+            Code and documentation on GitHub
+          </Link>
         </Wrapper>
       </Header>,
       <Main key="section">
         <Wrapper>
           <CameraWrapper>
-            <Camera onTakePhoto={this.handleTakePhoto} />
+            <Camera onTakePhoto={this.handleTakePhotoBasic} />
           </CameraWrapper>
           <Images>
-            {this.state.images.map(img => <Image key={img} src={img} />)}
+            {this.state.basicImages.map(img => <Image key={img} src={img} />)}
+          </Images>
+          <Heading>Custom capture button</Heading>
+          <CameraWrapper>
+            <Camera
+              captureButtonRenderer={onClick => (
+                <CustomCaptureButton onClick={onClick} type="button">
+                  Take Photo
+                </CustomCaptureButton>
+              )}
+              onTakePhoto={this.handleTakePhotoCustomRenderer}
+            />
+          </CameraWrapper>
+          <Images>
+            {this.state.customImages.map(img => <Image key={img} src={img} />)}
           </Images>
         </Wrapper>
       </Main>,
