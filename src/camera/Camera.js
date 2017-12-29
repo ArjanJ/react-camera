@@ -9,17 +9,21 @@ import SwitchModeButton from './SwitchModeButton';
 import { errorTypes } from './errorTypes';
 import { facingModes } from './facingModeTypes';
 
+const buildConstraints = (facingMode, height, width) => {
+  const constraints = { video: {} };
+  if (facingMode) constraints.video.facingMode = facingMode.toLowerCase();
+  if (height) constraints.video.height = height;
+  if (width) constraints.video.width = width;
+  return constraints;
+};
+
 class Camera extends PureComponent {
   constructor(props) {
     super(props);
+    const { facingMode, height, width } = this.props;
+    const constraints = buildConstraints(facingMode, height, width);
     this.state = {
-      constraints: {
-        video: {
-          facingMode: this.props.facingMode,
-          // height: { ideal: this.props.height, max: this.props.height },
-          width: { ideal: this.props.width, max: this.props.width },
-        },
-      },
+      constraints,
       devices: null,
       error: false,
       mediaStream: null,
@@ -87,13 +91,8 @@ class Camera extends PureComponent {
   }
 
   handleResize = debounce(150, async () => {
-    await this.getMediaStream({
-      video: {
-        facingMode: this.state.constraints.video.facingMode,
-        height: { ideal: this.props.height, max: this.props.height },
-        width: { ideal: this.props.width, max: this.props.width },
-      },
-    });
+    const { facingMode, height, width } = this.state.constraints.video;
+    await this.getMediaStream(buildConstraints(facingMode, height, width));
     this.setVideoStream();
   });
 
@@ -168,7 +167,6 @@ class Camera extends PureComponent {
 
 Camera.defaultProps = {
   facingMode: facingModes.ENVIRONMENT,
-  height: window.innerHeight,
   responsive: true,
   width: window.innerWidth,
 };

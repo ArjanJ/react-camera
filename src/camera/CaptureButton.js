@@ -16,7 +16,7 @@ const CaptureButton = ({ onCapture }) => (
   <button
     onClick={onCapture}
     style={captureButtonStyle}
-    title="capture"
+    title="Take photo"
     type="button"
   />
 );
