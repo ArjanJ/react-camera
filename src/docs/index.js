@@ -145,7 +145,7 @@ const EmojiButton = styled.button`
   background: none;
   border: none;
   bottom: -42px;
-  left: 46%;
+  left: 46.5%;
   opacity: ${props => (props.show ? 1 : 0)};
   position: absolute;
   transition: opacity 0.5s 0.17s ease-out;
@@ -200,6 +200,9 @@ class Docs extends React.PureComponent {
       </Header>,
       <Main key="section">
         <Wrapper>
+          <HeadingGroup>
+            <Heading>Basic usage</Heading>
+          </HeadingGroup>
           <CameraWrapper>
             <Camera onTakePhoto={this.handleTakePhotoBasic} />
             <EmojiButton show={!this.state.clickedCapture}>
