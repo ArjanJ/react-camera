@@ -9,6 +9,7 @@ injectGlobal`
 
   body {
     background: #7A08FA;
+    color: #FAFAFA;
     font-family: SF Pro Text, Arial, sans-serif;
     line-height: 1.5;
     -webkit-font-smoothing: antialiased;
@@ -21,6 +22,10 @@ injectGlobal`
 
   a {
     text-decoration: none;
+  }
+
+  p {
+    margin: 0;
   }
 `;
 
@@ -67,6 +72,10 @@ const Heading = styled.h2`
   color: #fafafa;
   font-size: 20px;
   font-weight: 700;
+  margin-bottom: ${settings.space / 3}px;
+`;
+
+const HeadingGroup = styled.div`
   margin-bottom: ${settings.space}px;
 `;
 
@@ -82,7 +91,7 @@ const Images = styled.div`
   align-items: center;
   display: flex;
   flex-wrap: wrap;
-  margin-bottom: ${settings.space * 2}px;
+  margin-bottom: ${settings.space * 4}px;
 `;
 
 const Image = styled.img`
@@ -162,7 +171,13 @@ class Docs extends React.PureComponent {
           <Images>
             {this.state.basicImages.map(img => <Image key={img} src={img} />)}
           </Images>
-          <Heading>Custom capture button</Heading>
+          <HeadingGroup>
+            <Heading>Custom capture button</Heading>
+            <p>
+              This example demonstrates a custom render method for the capture
+              button.
+            </p>
+          </HeadingGroup>
           <CameraWrapper>
             <Camera
               captureButtonRenderer={onClick => (
