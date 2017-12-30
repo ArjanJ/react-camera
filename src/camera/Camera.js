@@ -19,6 +19,7 @@ class Camera extends PureComponent {
       constraints,
       devices: null,
       error: false,
+      isIntersecting: false,
       mediaStream: null,
     };
     this.changeFacingMode = this.changeFacingMode.bind(this);
@@ -34,9 +35,33 @@ class Camera extends PureComponent {
   }
 
   async componentDidMount() {
+    const supportsIntersectionObserver = window.IntersectionObserver;
     await this.getMediaStream(this.state.constraints);
-    this.setVideoStream();
+    if (!supportsIntersectionObserver) this.setVideoStream();
     window.addEventListener('resize', this.handleResize);
+
+    if (supportsIntersectionObserver) {
+      const io = new IntersectionObserver(([entry]) => {
+        if (entry) {
+          return this.setState({ isIntersecting: entry.isIntersecting });
+        }
+      });
+      io.observe(this.video);
+    }
+  }
+
+  async componentDidUpdate(prevProps, prevState) {
+    const { isIntersecting } = this.state;
+    if (isIntersecting !== prevState.isIntersecting) {
+      if (isIntersecting) {
+        const { facingMode, height, width } = this.state.constraints.video;
+        const constraints = buildConstraints(facingMode, height, width);
+        await this.getMediaStream(constraints);
+        return this.setVideoStream();
+      } else {
+        return this.stopMediaStream();
+      }
+    }
   }
 
   componentWillUnmount() {
@@ -83,9 +108,6 @@ class Camera extends PureComponent {
   });
 
   async takePhoto(imageCapture) {
-    if (!imageCapture) {
-      this.setState({ error: errorTypes.TAKE_PHOTO_FAILURE.type });
-    }
     try {
       const { onTakePhoto } = this.props;
       const blob = await imageCapture.takePhoto();

@@ -239,7 +239,11 @@ class Docs extends React.PureComponent {
       </Main>,
       <Footer>
         Copyright ©{' '}
-        <a href="https://twitter.com/ArjanJassal" target="_blank">
+        <a
+          href="https://twitter.com/ArjanJassal"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
           Arjan Jassal
         </a>{' '}
         2017. MIT Licensed.
