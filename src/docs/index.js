@@ -156,6 +156,17 @@ const EmojiButton = styled.button`
   }
 `;
 
+const Footer = styled.footer`
+  background: #fafafa;
+  color: #878787;
+  padding: ${settings.space}px ${settings.space / 1.5}px;
+  text-align: center;
+
+  a {
+    color: ${settings.colors.headings};
+  }
+`;
+
 class Docs extends React.PureComponent {
   state = {
     basicImages: [],
@@ -226,6 +237,13 @@ class Docs extends React.PureComponent {
           </HeadingGroup>
         </Wrapper>
       </Main>,
+      <Footer>
+        Copyright ©{' '}
+        <a href="https://twitter.com/ArjanJassal" target="_blank">
+          Arjan Jassal
+        </a>{' '}
+        2017. MIT Licensed.
+      </Footer>,
     ];
   }
 }
