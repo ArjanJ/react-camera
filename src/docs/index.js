@@ -34,6 +34,12 @@ const fadeIn = keyframes`
   to { opacity: 1; transform: none; }
 `;
 
+const upDown = keyframes`
+  0% { transform: translateY(-10px); }
+  50% { transform: translateY(10px); }
+  100% { transform: translateY(-10px); }
+`;
+
 const settings = {
   colors: {
     headings: '#7A08FA',
@@ -45,7 +51,7 @@ const settings = {
 const Wrapper = styled.div`
   margin: auto;
   max-width: 800px;
-  padding: 0 ${settings.space / 2}px;
+  padding: 0 ${settings.space / 1.5}px;
 `;
 
 const Title = styled.h1`
@@ -84,7 +90,7 @@ const CameraWrapper = styled.div`
   border-radius: 2px;
   box-shadow: 0 6px 24px rgba(0, 0, 0, 0.12);
   margin-bottom: ${settings.space * 1.5}px;
-  overflow: hidden;
+  position: relative;
 `;
 
 const Images = styled.div`
@@ -134,6 +140,20 @@ const Main = styled.section`
   padding-bottom: ${settings.space * 2}px;
 `;
 
+const EmojiButton = styled.button`
+  animation: ${upDown} 1.2s cubic-bezier(0.445, 0.05, 0.55, 0.95) infinite;
+  background: none;
+  border: none;
+  bottom: -48px;
+  left: 46%;
+  position: absolute;
+
+  [role='img'] {
+    font-size: 42px;
+    vertical-align: middle;
+  }
+`;
+
 class Docs extends React.PureComponent {
   state = {
     basicImages: [],
@@ -167,6 +187,11 @@ class Docs extends React.PureComponent {
         <Wrapper>
           <CameraWrapper>
             <Camera onTakePhoto={this.handleTakePhotoBasic} />
+            <EmojiButton>
+              <span aria-label="Point up" role="img">
+                ☝️
+              </span>
+            </EmojiButton>
           </CameraWrapper>
           <Images>
             {this.state.basicImages.map(img => <Image key={img} src={img} />)}
@@ -191,6 +216,10 @@ class Docs extends React.PureComponent {
           <Images>
             {this.state.customImages.map(img => <Image key={img} src={img} />)}
           </Images>
+          <HeadingGroup>
+            <Heading>Browser support</Heading>
+            <p>Not great tbh.</p>
+          </HeadingGroup>
         </Wrapper>
       </Main>,
     ];

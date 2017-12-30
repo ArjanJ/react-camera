@@ -8,14 +8,7 @@ import CameraControls from './CameraControls';
 import SwitchModeButton from './SwitchModeButton';
 import { errorTypes } from './errorTypes';
 import { facingModes } from './facingModeTypes';
-
-const buildConstraints = (facingMode, height, width) => {
-  const constraints = { video: {} };
-  if (facingMode) constraints.video.facingMode = facingMode.toLowerCase();
-  if (height) constraints.video.height = height;
-  if (width) constraints.video.width = width;
-  return constraints;
-};
+import { buildConstraints, getAvailableDevices } from './cameraUtils';
 
 class Camera extends PureComponent {
   constructor(props) {
@@ -31,10 +24,18 @@ class Camera extends PureComponent {
     this.changeFacingMode = this.changeFacingMode.bind(this);
   }
 
+  async componentWillMount() {
+    const devices = await getAvailableDevices('video');
+    if (devices) {
+      this.setState({
+        devices,
+      });
+    }
+  }
+
   async componentDidMount() {
     await this.getMediaStream(this.state.constraints);
     this.setVideoStream();
-    this.getAvailableDevices();
     window.addEventListener('resize', this.handleResize);
   }
 
@@ -67,16 +68,6 @@ class Camera extends PureComponent {
     });
     await this.getMediaStream(newConstraints);
     this.setVideoStream();
-  }
-
-  async getAvailableDevices() {
-    const devices = await navigator.mediaDevices.enumerateDevices();
-    if (devices.length > 0) {
-      const videoDevices = devices.filter(d => d.kind === 'videoinput');
-      if (videoDevices.length > 0) {
-        this.setState({ devices: videoDevices });
-      }
-    }
   }
 
   async getMediaStream(constraints = {}) {

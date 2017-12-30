@@ -7,9 +7,12 @@ export const errorTypes = {
     details: 'Your browser does not support this feature',
     type: 'NO_STREAM',
   },
-  TAKE_PHOTO_FAILURE: 'Could not take a photo',
+  TAKE_PHOTO_FAILURE: {
+    details: 'Could not take a photo',
+    type: 'TAKE_PHOTO_FAILURE',
+  },
   UNSUPPORTED: {
-    details: 'No media stream found',
+    details: 'Your browser does not support this feature',
     type: 'UNSUPPORTED',
   },
 };
