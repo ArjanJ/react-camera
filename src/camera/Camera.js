@@ -23,6 +23,7 @@ class Camera extends PureComponent {
       mediaStream: null,
     };
     this.changeFacingMode = this.changeFacingMode.bind(this);
+    this.io = new IntersectionObserver(this.handleIntersectionObserver);
   }
 
   async componentWillMount() {
@@ -41,12 +42,7 @@ class Camera extends PureComponent {
     window.addEventListener('resize', this.handleResize);
 
     if (supportsIntersectionObserver) {
-      const io = new IntersectionObserver(([entry]) => {
-        if (entry) {
-          return this.setState({ isIntersecting: entry.isIntersecting });
-        }
-      });
-      io.observe(this.video);
+      this.io.observe(this.video);
     }
   }
 
@@ -66,6 +62,7 @@ class Camera extends PureComponent {
 
   componentWillUnmount() {
     this.stopMediaStream();
+    this.io.disconnect();
     window.removeEventListener('resize', this.handleResize);
   }
 
@@ -100,6 +97,12 @@ class Camera extends PureComponent {
       this.setState({ error: errorTypes.UNSUPPORTED.type });
     }
   }
+
+  handleIntersectionObserver = ([entry]) => {
+    if (entry) {
+      return this.setState({ isIntersecting: entry.isIntersecting });
+    }
+  };
 
   handleResize = debounce(150, async () => {
     const { facingMode, height, width } = this.state.constraints.video;
