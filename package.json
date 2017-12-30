@@ -1,6 +1,7 @@
 {
   "name": "react-dom-camera",
-  "description": "Take photos using the latest WebRTC API's.",
+  "description":
+    "A flexible camera component for React DOM; take photos using the latest WebRTC API's.",
   "version": "0.2.120",
   "main": "./src/camera/Camera.js",
   "dependencies": {
