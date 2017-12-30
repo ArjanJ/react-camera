@@ -59,14 +59,9 @@ class Camera extends PureComponent {
       return this.setState({ error: errorTypes.INVALID_FACING_MODE.type });
     }
     this.stopMediaStream();
-    const newConstraints = Object.assign({}, this.state.constraints, {
-      video: {
-        facingMode: facingModes[facingMode].toLowerCase(),
-        height: this.state.constraints.video.height,
-        width: this.state.constraints.video.width,
-      },
-    });
-    await this.getMediaStream(newConstraints);
+    const { height, width } = this.state.constraints.video;
+    const constraints = buildConstraints(facingMode, height, width);
+    await this.getMediaStream(constraints);
     this.setVideoStream();
   }
 
