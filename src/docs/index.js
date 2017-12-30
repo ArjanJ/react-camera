@@ -35,9 +35,9 @@ const fadeIn = keyframes`
 `;
 
 const upDown = keyframes`
-  0% { transform: translateY(-10px); }
-  50% { transform: translateY(10px); }
-  100% { transform: translateY(-10px); }
+  0% { transform: translateY(-8px); }
+  50% { transform: translateY(8px); }
+  100% { transform: translateY(-8px); }
 `;
 
 const settings = {
@@ -144,9 +144,11 @@ const EmojiButton = styled.button`
   animation: ${upDown} 1.2s cubic-bezier(0.445, 0.05, 0.55, 0.95) infinite;
   background: none;
   border: none;
-  bottom: -48px;
+  bottom: -42px;
   left: 46%;
+  opacity: ${props => (props.show ? 1 : 0)};
   position: absolute;
+  transition: opacity 0.5s 0.17s ease-out;
 
   [role='img'] {
     font-size: 42px;
@@ -157,12 +159,14 @@ const EmojiButton = styled.button`
 class Docs extends React.PureComponent {
   state = {
     basicImages: [],
+    clickedCapture: false,
     customImages: [],
   };
 
   handleTakePhotoBasic = img => {
     this.setState({
       basicImages: [...this.state.basicImages, img],
+      clickedCapture: true,
     });
   };
 
@@ -187,7 +191,7 @@ class Docs extends React.PureComponent {
         <Wrapper>
           <CameraWrapper>
             <Camera onTakePhoto={this.handleTakePhotoBasic} />
-            <EmojiButton>
+            <EmojiButton show={!this.state.clickedCapture}>
               <span aria-label="Point up" role="img">
                 ☝️
               </span>
