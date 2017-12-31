@@ -76,13 +76,17 @@ const Header = styled.header`
 
 const Heading = styled.h2`
   color: #fafafa;
-  font-size: 20px;
+  font-size: 24px;
   font-weight: 700;
   margin-bottom: ${settings.space / 3}px;
 `;
 
 const HeadingGroup = styled.div`
   margin-bottom: ${settings.space}px;
+
+  a {
+    color: white;
+  }
 `;
 
 const CameraWrapper = styled.div`
@@ -97,7 +101,6 @@ const Images = styled.div`
   align-items: center;
   display: flex;
   flex-wrap: wrap;
-  margin-bottom: ${settings.space * 4}px;
 `;
 
 const Image = styled.img`
@@ -145,10 +148,12 @@ const EmojiButton = styled.button`
   background: none;
   border: none;
   bottom: -42px;
-  left: 46.5%;
+  left: 0;
   opacity: ${props => (props.show ? 1 : 0)};
   position: absolute;
+  text-align: center;
   transition: opacity 0.5s 0.17s ease-out;
+  width: 100%;
 
   [role='img'] {
     font-size: 42px;
@@ -164,6 +169,17 @@ const Footer = styled.footer`
 
   a {
     color: ${settings.colors.headings};
+  }
+`;
+
+const Section = styled.section`
+  border-bottom: 2px dashed rgba(255, 255, 255, 0.8);
+  margin-bottom: ${settings.space * 3}px;
+  padding-bottom: ${settings.space * 2}px;
+
+  &:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
   }
 `;
 
@@ -200,44 +216,61 @@ class Docs extends React.PureComponent {
       </Header>,
       <Main key="section">
         <Wrapper>
-          <HeadingGroup>
-            <Heading>Basic usage</Heading>
-          </HeadingGroup>
-          <CameraWrapper>
-            <Camera onTakePhoto={this.handleTakePhotoBasic} />
-            <EmojiButton show={!this.state.clickedCapture}>
-              <span aria-label="Point up" role="img">
-                ☝️
-              </span>
-            </EmojiButton>
-          </CameraWrapper>
-          <Images>
-            {this.state.basicImages.map(img => <Image key={img} src={img} />)}
-          </Images>
-          <HeadingGroup>
-            <Heading>Custom capture button</Heading>
-            <p>
-              This example demonstrates a custom render method for the capture
-              button.
-            </p>
-          </HeadingGroup>
-          <CameraWrapper>
-            <Camera
-              captureButtonRenderer={onClick => (
-                <CustomCaptureButton onClick={onClick} type="button">
-                  Take Photo
-                </CustomCaptureButton>
-              )}
-              onTakePhoto={this.handleTakePhotoCustomRenderer}
-            />
-          </CameraWrapper>
-          <Images>
-            {this.state.customImages.map(img => <Image key={img} src={img} />)}
-          </Images>
-          <HeadingGroup>
-            <Heading>Browser support</Heading>
-            <p>Not great tbh.</p>
-          </HeadingGroup>
+          <Section>
+            <HeadingGroup>
+              <Heading>Basic usage</Heading>
+            </HeadingGroup>
+            <CameraWrapper>
+              <Camera onTakePhoto={this.handleTakePhotoBasic} />
+              <EmojiButton show={!this.state.clickedCapture}>
+                <span aria-label="Point up" role="img">
+                  ☝️
+                </span>
+              </EmojiButton>
+            </CameraWrapper>
+            <Images>
+              {this.state.basicImages.map(img => <Image key={img} src={img} />)}
+            </Images>
+          </Section>
+          <Section>
+            <HeadingGroup>
+              <Heading>Custom capture button</Heading>
+              <p>
+                This example demonstrates a custom render method for the capture
+                button.
+              </p>
+            </HeadingGroup>
+            <CameraWrapper>
+              <Camera
+                captureButtonRenderer={onClick => (
+                  <CustomCaptureButton onClick={onClick} type="button">
+                    Take Photo
+                  </CustomCaptureButton>
+                )}
+                onTakePhoto={this.handleTakePhotoCustomRenderer}
+              />
+            </CameraWrapper>
+            <Images>
+              {this.state.customImages.map(img => (
+                <Image key={img} src={img} />
+              ))}
+            </Images>
+          </Section>
+          <Section>
+            <HeadingGroup>
+              <Heading>Browser support</Heading>
+              <a
+                href="https://caniuse.com/#feat=stream"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <span aria-label="chain link" role="img">
+                  🔗
+                </span>{' '}
+                caniuse.com
+              </a>
+            </HeadingGroup>
+          </Section>
         </Wrapper>
       </Main>,
       <Footer>
