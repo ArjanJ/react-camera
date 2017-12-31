@@ -29,7 +29,7 @@ const App = () => <Camera />;
 
 ### Taking a photo 📸
 
-React Camera is setup to take an image of the current frame when the capture button is clicked, however to access the image you must use the `onTakePhoto` function which gives you the image.
+React Camera is setup to take an image of the current frame when the capture button is clicked, however, to access the image you must use the `onTakePhoto` prop which passes you the image. The `image` can be set as the `src` value on an `<img>` element for example.
 
 ```javascript
 import React from 'react';
@@ -43,3 +43,31 @@ const App = () => (
   />
 );
 ```
+
+### Custom capture button
+
+If you're not a fan of the default capture button you can easily use your own component(s) instead. Use the `captureButtonRenderer` prop and pass in a stateless component.
+
+```javascript
+import React from 'react';
+import Camera from 'react-dom-camera';
+
+const CoolButton = ({ onClick }) => (
+  <button onClick={onClick} type="button">
+    Take photo
+  </button>
+);
+
+const App = () => (
+  <Camera
+    captureButtonRenderer={onClick => <CoolButton onClick={onClick} />}
+    onTakePhoto={image =>
+      console.log(image, 'do whatever you want with the image')
+    }
+  />
+);
+```
+
+## Browser support
+
+[🔗 caniuse.com](https://caniuse.com/#feat=stream)
