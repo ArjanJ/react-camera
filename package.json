@@ -4,6 +4,7 @@
     "A flexible camera component for React DOM; take photos using the latest WebRTC API's.",
   "version": "0.3.0",
   "main": "./src/camera/Camera.js",
+  "license": "MIT",
   "dependencies": {
     "prop-types": "15.6.0",
     "react": "16.0.0",
