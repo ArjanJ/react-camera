@@ -18,7 +18,7 @@ import Camera from 'react-dom-camera';
 
 ## Usage
 
-Here is a basic example of how to use React Camera in a React app. This will simply render the Camera component out of the box.
+Here is a basic example of how to use React Camera in a React app. This will render the Camera component "out of the box".
 
 ```javascript
 import React from 'react';
@@ -67,6 +67,12 @@ const App = () => (
   />
 );
 ```
+
+## Props
+
+| Property              | Type     | Default   | Description                                                     |
+| --------------------- | -------- | --------- | --------------------------------------------------------------- |
+| captureButtonRenderer | function | undefined | Renders a custom capture button that is used to take the photo. |
 
 ## Browser support
 
