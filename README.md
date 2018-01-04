@@ -70,15 +70,15 @@ const App = () => (
 
 ## Props
 
-| Property              | Type     | Default             | Description                                                                                                     |
-| --------------------- | -------- | ------------------- | --------------------------------------------------------------------------------------------------------------- |
-| captureButtonRenderer | function | undefined           | Renders a custom capture button that is used to take the photo.                                                 |
-| facingMode            | string   | ENVIRONMENT         | The default facing mode to use, E.g. Environment or User.                                                       |
-| height                | number   | undefined           | The ideal height of the video.                                                                                  |
-| onStopMediaStream     | function | undefined           | This function is called when the video stops streaming.                                                         |
-| onTakePhoto           | function | undefined           | This function is called when the capture button is pressed. The captured `image` is passed as an argument here. |
-| responsive            | boolean  | true                | Applies `width: 100%` to the `video` element so it fills the container it's in.                                 |
-| width                 | number   | `window.innerWidth` | The ideal width of the video.                                                                                   |
+| Property              | Type     | Default     | Description                                                                                                     |
+| --------------------- | -------- | ----------- | --------------------------------------------------------------------------------------------------------------- |
+| captureButtonRenderer | function | undefined   | Renders a custom capture button that is used to take the photo.                                                 |
+| facingMode            | string   | ENVIRONMENT | The default facing mode to use, E.g. Environment or User.                                                       |
+| height                | number   | undefined   | The ideal height of the video.                                                                                  |
+| onStopMediaStream     | function | undefined   | This function is called when the video stops streaming.                                                         |
+| onTakePhoto           | function | undefined   | This function is called when the capture button is pressed. The captured `image` is passed as an argument here. |
+| responsive            | boolean  | true        | Applies `width: 100%` to the `video` element so it fills the container it's in.                                 |
+| width                 | number   | undefined   | The ideal width of the video.                                                                                   |
 
 ## Browser support
 
