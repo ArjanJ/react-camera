@@ -1,3 +1,6 @@
+# WIP - Does not work properly, yet.
+Use at your own caution.
+
 # React Camera
 
 A flexible camera component for React DOM; take photos using the latest WebRTC API's.
