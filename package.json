@@ -1,7 +1,7 @@
 {
   "name": "react-dom-camera",
   "description": "A flexible camera component for React DOM; take photos using the latest WebRTC API's.",
-  "version": "0.3.4",
+  "version": "0.3.5",
   "main": "./lib/react-camera.js",
   "license": "MIT",
   "dependencies": {
