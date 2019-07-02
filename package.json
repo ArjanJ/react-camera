@@ -2,7 +2,7 @@
   "name": "react-dom-camera",
   "description": "A flexible camera component for React DOM; take photos using the latest WebRTC API's.",
   "version": "0.3.3",
-  "main": "./src/camera/Camera.js",
+  "main": "./lib/react-camera.js",
   "license": "MIT",
   "dependencies": {
     "prop-types": "15.6.0",
@@ -11,12 +11,23 @@
     "throttle-debounce": "^1.0.1"
   },
   "devDependencies": {
+    "@babel/cli": "^7.4.4",
+    "@babel/core": "^7.4.5",
+    "@babel/plugin-proposal-class-properties": "^7.4.4",
+    "@babel/plugin-transform-regenerator": "^7.4.5",
+    "@babel/plugin-transform-runtime": "^7.4.4",
+    "@babel/preset-env": "^7.4.5",
+    "@babel/preset-react": "^7.0.0",
     "react-scripts": "1.0.0",
+    "rollup": "^1.16.4",
+    "rollup-plugin-babel": "^4.3.3",
     "styled-components": "^4.3.2"
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "npm run clear && rollup -c",
+    "build-docs": "react-scripts build",
+    "clear": "rm -rf lib/*",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   }
