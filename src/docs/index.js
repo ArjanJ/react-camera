@@ -1,8 +1,8 @@
-import React from 'react';
-import styled, { injectGlobal, keyframes } from 'styled-components';
-import Camera from '../camera/Camera';
+import React from "react";
+import styled, { createGlobalStyle, keyframes } from "styled-components";
+import Camera from "../camera/Camera";
 
-injectGlobal`
+const GlobalStyle = createGlobalStyle`
   * {
     box-sizing: border-box;
   }
@@ -42,10 +42,10 @@ const upDown = keyframes`
 
 const settings = {
   colors: {
-    headings: '#7A08FA',
-    text: '#A82FFC',
+    headings: "#7A08FA",
+    text: "#A82FFC"
   },
-  space: 24,
+  space: 24
 };
 
 const Wrapper = styled.div`
@@ -133,7 +133,7 @@ const Link = styled.a`
   }
 `;
 
-const CustomCaptureButton = Link.withComponent('button').extend`
+const CustomCaptureButton = styled(Link)`
   border: none;
   cursor: pointer;
   font-size: 16px;
@@ -155,7 +155,7 @@ const EmojiButton = styled.button`
   transition: opacity 0.5s 0.17s ease-out;
   width: 100%;
 
-  [role='img'] {
+  [role="img"] {
     font-size: 42px;
     vertical-align: middle;
   }
@@ -187,24 +187,25 @@ class Docs extends React.PureComponent {
   state = {
     basicImages: [],
     clickedCapture: false,
-    customImages: [],
+    customImages: []
   };
 
   handleTakePhotoBasic = img => {
     this.setState({
       basicImages: [...this.state.basicImages, img],
-      clickedCapture: true,
+      clickedCapture: true
     });
   };
 
   handleTakePhotoCustomRenderer = img => {
     this.setState({
-      customImages: [...this.state.customImages, img],
+      customImages: [...this.state.customImages, img]
     });
   };
 
   render() {
     return [
+      <GlobalStyle />,
       <Header key="header">
         <Wrapper>
           <Title>React Camera</Title>
@@ -229,7 +230,9 @@ class Docs extends React.PureComponent {
               </EmojiButton>
             </CameraWrapper>
             <Images>
-              {this.state.basicImages.map(img => <Image key={img} src={img} />)}
+              {this.state.basicImages.map(img => (
+                <Image key={img} src={img} />
+              ))}
             </Images>
           </Section>
           <Section>
@@ -243,7 +246,11 @@ class Docs extends React.PureComponent {
             <CameraWrapper>
               <Camera
                 captureButtonRenderer={onClick => (
-                  <CustomCaptureButton onClick={onClick} type="button">
+                  <CustomCaptureButton
+                    as="button"
+                    onClick={onClick}
+                    type="button"
+                  >
                     Take Photo
                   </CustomCaptureButton>
                 )}
@@ -266,7 +273,7 @@ class Docs extends React.PureComponent {
               >
                 <span aria-label="chain link" role="img">
                   🔗
-                </span>{' '}
+                </span>{" "}
                 caniuse.com
               </a>
             </HeadingGroup>
@@ -274,16 +281,16 @@ class Docs extends React.PureComponent {
         </Wrapper>
       </Main>,
       <Footer>
-        Copyright ©{' '}
+        Copyright ©{" "}
         <a
           href="https://twitter.com/ArjanJassal"
           target="_blank"
           rel="noopener noreferrer"
         >
           Arjan Jassal
-        </a>{' '}
+        </a>{" "}
         2017. MIT Licensed.
-      </Footer>,
+      </Footer>
     ];
   }
 }
