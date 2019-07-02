@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import debounce from 'throttle-debounce/debounce';
+
 import './polyfill';
 import CameraError from './CameraError';
 import CaptureButton from './CaptureButton';
@@ -96,7 +97,7 @@ class Camera extends PureComponent {
   async getMediaStream(constraints = {}) {
     try {
       const mediaStream = await navigator.mediaDevices.getUserMedia(
-        constraints,
+        constraints
       );
       this.setState({ mediaStream });
     } catch (error) {
@@ -150,7 +151,9 @@ class Camera extends PureComponent {
     const { captureButtonRenderer, responsive } = this.props;
     const { constraints = {}, devices, error } = this.state;
     const multipleDevices = devices && devices.length > 1;
-    const { video: { facingMode } } = constraints;
+    const {
+      video: { facingMode },
+    } = constraints;
     return error ? (
       <CameraError errorType={error} />
     ) : (
