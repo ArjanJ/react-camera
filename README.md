@@ -2,6 +2,9 @@
 
 A flexible camera component for React DOM; take photos using the latest WebRTC API's.
 
+### Demo
+[See Demo 📸](https://react-camera.netlify.com)
+
 ## Installation
 
 React Camera is designed to be installed through NPM and imported as an ES6 module.
