@@ -1,3 +1,4 @@
+# ⚠️ NO LONGER MAINTAINED - USE AT OWN RISK ⚠️
 # React Camera
 
 A flexible camera component for React DOM; take photos using the latest WebRTC API's.
